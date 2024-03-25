@@ -6,61 +6,71 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
+//@RequestMapping("/calculator")
 @RequestMapping()
 public class CalController {
-    private final CalcService calcService;
+    private final CalculatorServiceImpl calcService;
 
-    public CalController(CalcService calcService) {
+    public CalController(CalculatorServiceImpl calcService) {
         this.calcService = calcService;
     }
 
-    @GetMapping(path = "/calculator")
+    @GetMapping("/calculator")
     public String answerCalculator() {
         return "<h1>Добро пожаловать в калькулятор. <h1>";
     }
 
+    private String message(int num1, int num2, char action, int result) {
+        return String.format("<h1>%d %c %d = %d </h1>", num1, action, num2, result);
+    }
 
-    @GetMapping(path = "/calculator/plus")
+
+//    @GetMapping("/plus")
+    @GetMapping("/calculator/plus")
     public String answerPlusCalculator(@RequestParam Integer num1, @RequestParam Integer num2) {
         if (num1 == null || num2 == null) {
-            return "Ошибка!!! Введены не все данные!!!";
+            return "<h1>Ошибка!!! Введены не все данные!!!</h1>";
         } else {
             int result = calcService.sum(num1, num2);
-            return num1 + "+" + num2 + "=" + (num1 + num2);
+            return message(num1, num2, '+', result);
         }
     }
 
-    @GetMapping(path = "/calculator/minus")
+//    @GetMapping("/minus")
+    @GetMapping("/calculator/minus")
     public String answerMinusCalculator(@RequestParam Integer num1, @RequestParam Integer num2) {
         if (num1 == null || num2 == null) {
-            return "Ошибка!!! Введены не все данные!!!";
+
+            return "<h1>Ошибка!!! Введены не все данные!!!</h1>";
         } else {
             int result = calcService.subtract(num1, num2);
-            return num1 + "-" + num2 + "=" + (num1 - num2);
+            return message(num1, num2, '-', result);
         }
     }
 
 
-    @GetMapping(path = "/calculator/multiply")
+//    @GetMapping("/multiply")
+    @GetMapping("/calculator/multiply")
     public String answerMultiplyCalculator(@RequestParam Integer num1, @RequestParam Integer num2) {
         if (num1 == null || num2 == null) {
-            return "Ошибка!!! Введены не все данные!!!";
+            return "<h1>Ошибка!!! Введены не все данные!!!</h1>";
         } else {
             int result = calcService.multiply(num1, num2);
-            return num1 + "*" + num2 + "=" + (num1 * num2);
+            return message(num1, num2, '*', result);
         }
     }
 
 
-    @GetMapping(path = "/calculator/divide")
+//    @GetMapping("/divide")
+    @GetMapping("/calculator/divide")
     public String answerDividelyCalculator(@RequestParam Integer num1, @RequestParam Integer num2) {
         if (num1 == null || num2 == null) {
-            return "Ошибка!!! Введены не все данные!!!";
+            return "<h1>Ошибка!!! Введены не все данные!!!</h1>";
         } else if (num2 == 0) {
-            return "ОШИБКА!!! на 0 делить нельзя!!!";
+            return "<h1>ОШИБКА!!! на 0 делить нельзя!!!</h1>";
         } else {
             int result = calcService.divide(num1, num2);
-            return num1 + "/" + num2 + "=" + (num1 / num2);
+            return message(num1, num2, '/', result);
         }
     }
 }

@@ -2,11 +2,12 @@ package pro.sky.calculator;
 
 
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.RestController;
+
+
 
 @Service
-@RestController
-public class CalcService implements CalculatorService {
+
+public class CalculatorServiceImpl implements CalculatorService {
 
     @Override
     public int sum(int num1, int num2) {
